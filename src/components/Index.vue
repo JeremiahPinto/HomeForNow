@@ -14,7 +14,7 @@
                       :state="state"
         >
           <b-row>
-            <b-col cols="12" md="8">
+            <b-col cols="12" lg="8">
               <b-form-input id="location"
                             ref="autocomplete"
                             v-model.trim="name"
@@ -34,12 +34,12 @@
                   </p>
                 </b-col>
               </b-row>
-
             </b-col>
-            <b-col cols="6" md="2">
+
+            <b-col cols="6" sm="4" offset-sm="1" lg="2" offset-lg="0">
               <b-button type="submit" size="lg" variant="pink" :style="{ width: 'inherit', height: '50px' }">Right Now</b-button>
             </b-col>
-            <b-col cols="6" md="2">
+            <b-col cols="6" sm="4" offset-sm="2" lg="2" offset-lg="0">
               <b-button type="submit" size="lg" variant="outline-pink" :style="{ width: 'inherit', height: '50px' }">Long Term</b-button>
             </b-col>
           </b-row>
@@ -53,7 +53,7 @@
         </b-col>
       </b-row>
 
-      <b-row :style="{ marginTop: '100px' }">
+      <!-- <b-row :style="{ marginTop: '100px' }">
         <b-col>
           <h2 class="bang" :style="{ margin: '0' }"> Close To You. </h2>
           <h3> Nearest crisis accommodation services. </h3>
@@ -67,7 +67,7 @@
         <b-col cols="12" md="6">
           
         </b-col>
-      </b-row>
+      </b-row> -->
 
       <b-row>
         <b-col>

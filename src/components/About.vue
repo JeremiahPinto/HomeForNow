@@ -66,19 +66,19 @@
 
       <b-row no-gutters="true" align-v="center">
         <b-col cols="12" sm="6" lg="3">
-          <b-img src="../assets/CFC_Logo.png" fluid class="logo"/>
+          <b-img-lazy src="../assets/CFC_Logo.png" fluid class="logo"/>
         </b-col>
 
         <b-col cols="12" sm="6" lg="3">
-          <b-img src="../assets/Luke_Logo.png" fluid class="logo"/>
+          <b-img-lazy src="../assets/Luke_Logo.png" fluid class="logo"/>
         </b-col>
         
         <b-col cols="12" sm="6" lg="3">
-          <b-img src="../assets/AWA_Horizontal.png" fluid class="logo"/>
+          <b-img-lazy src="../assets/AWA_Horizontal.png" fluid class="logo"/>
         </b-col>
 
         <b-col cols="12" sm="6" lg="3">
-          <b-img src="../assets/UWA_Horizontal.png" fluid class="logo"/>
+          <b-img-lazy src="../assets/UWA_Horizontal.png" fluid class="logo"/>
         </b-col>
       </b-row>
 
@@ -113,6 +113,7 @@ export default {
   name: 'about', // this is the name of the component
 };
 </script>
+
 <style>
 hr {
   height: 2px;
@@ -121,9 +122,11 @@ hr {
   margin-top: 0px;
   float: left;
 }
+
 h2 {
   margin-top: 20px;
 }
+
 .logo {
   padding: 10px;
 }
