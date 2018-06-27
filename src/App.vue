@@ -74,4 +74,11 @@ export default {
 .bold {
   font-weight: bold;
 }
+
+.modal-body {
+  padding: 0 16px;
+}
+.modal-footer {
+  padding-top: 0;
+}
 </style>
