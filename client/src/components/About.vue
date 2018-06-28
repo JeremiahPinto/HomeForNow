@@ -81,7 +81,7 @@
       </b-col>
     </b-row>
 
-    <b-row style="margin-top: 16px;">
+    <b-row :style="{ marginTop: '36px' }">
       <b-col>
         <h3 class="bold">
           Entry Point
