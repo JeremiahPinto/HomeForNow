@@ -1,30 +1,35 @@
 # HomeForNow
 
-> A simple responsive web application that allows a homeless youth to easily search for available accommodation and then be able to quickly make a booking. Accommodation providers are provided with a simple interface to enter, modify and track their bed vacancies with a platform to receive accommodation enquiries.
+## Context
 
-## Build Setup
+This application will digitalise the youth crisis accommodation sector.
+Making the process:
 
-``` bash
-# install dependencies
-npm install
+* less stressful
+* simpler
+* easier
+* more efficient, reducing costs
 
-# serve with hot reload at localhost:8080
-npm run dev
+### How we are going to do this:
 
-# build for production with minification
-npm run build
+A simple responsive web application that allows a homeless youth to easily search for available accommodation and then be able to quickly make a booking. Accommodation providers are provided with a simple interface to enter, modify and track their bed vacancies with a platform to receive accommodation enquiries.
 
-# build for production and view the bundle analyzer report
-npm run build --report
+## Using the App:
 
-# run unit tests
-npm run unit
+You can access the deployed version on www.homefornow.org.au
 
-# run e2e tests
-npm run e2e
+To use the latest version, follow the given steps using the terminal:
 
-# run all tests
-npm test
-```
+* `git clone https://github.com/JeremiahPinto/HomeForNow.git`. Download the latest stable version of the application.
+* Get the `.env` file from a team member and place it in the directory `server/`
+* Run `npm install` to get the required dependencies in the `client/` and `server/` directories.
+* Run `npm start` in both directories to start the front-end and back-end servers.
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Developers
+
+* Alex Arnold
+* Ben Chidlow
+* David Yu
+* Jeremiah Pinto
+* Matthew Stagoll
+* Thai Nguyen
