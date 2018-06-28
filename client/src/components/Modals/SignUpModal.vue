@@ -50,7 +50,7 @@
           </b-form-group>
         </b-col>
 
-        <b-col :style="{marginLeft: '10px'}">
+        <b-col :style="{marginLeft: '15px'}">
           <b-form-group>
             <b-form-checkbox value="yes" unchecked-value="no">
               <p> Parent with Child? </p> 
