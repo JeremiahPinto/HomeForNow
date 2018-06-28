@@ -1,4 +1,4 @@
-# homefornow
+# HomeForNow
 
 > A simple responsive web application that allows a homeless youth to easily search for available accommodation and then be able to quickly make a booking. Accommodation providers are provided with a simple interface to enter, modify and track their bed vacancies with a platform to receive accommodation enquiries.
 
