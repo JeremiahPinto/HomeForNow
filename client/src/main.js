@@ -3,6 +3,7 @@
 import 'babel-polyfill';
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
+import VueResource from 'vue-resource';
 import * as VueGoogleMaps from 'vue2-google-maps';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
@@ -10,6 +11,7 @@ import App from './App';
 import router from './router';
 
 Vue.use(BootstrapVue);
+Vue.use(VueResource);
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyA3i_JFMmmWMoWvhYFQ8BubRxjCZddZNFw', // need to make it env "REPLACE-THIS-WITH-YOUR-KEY-FROM-ABOVE",
