@@ -20,19 +20,22 @@ You can access the deployed version on www.homefornow.org.au
 
 To use the latest version, follow the given steps using the terminal:
 
-> `git clone https://github.com/JeremiahPinto/HomeForNow.git`. Download the latest stable version of the application.
+__`git clone https://github.com/JeremiahPinto/HomeForNow.git`. Download the latest stable version of the application.__
 
 ## Client Side:
- `cd client`\
- `npm install`\
- `npm start`
+ ```
+ cd client
+ npm install
+ npm start
+ ```
 
 ## Server Side:
 ### Get the `.env` file from a team member and place it in the directory `server/`
- `cd server`\
- `npm install`\
- `npm start`
-
+ ```
+ cd server
+ npm install
+ npm start
+```
 
 ## Developers:
 
