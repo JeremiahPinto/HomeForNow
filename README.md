@@ -30,7 +30,7 @@ __`git clone https://github.com/JeremiahPinto/HomeForNow.git`. Download the late
 > ```
 
 ### Server Side:
->__Get the `.env` file from a team member and place it in the directory `server/`__
+>__Get the required keys from a team member and place it in the directory `server/`__
 > ```
 > cd server
 > npm install
