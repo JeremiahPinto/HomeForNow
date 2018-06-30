@@ -22,7 +22,7 @@ To use the latest version, follow the given steps using the terminal:
 
 __`git clone https://github.com/JeremiahPinto/HomeForNow.git`. Download the latest stable version of the application.__
 
- #### Client Side:
+ ### Client Side:
 > ```
 > cd client
 > npm install
