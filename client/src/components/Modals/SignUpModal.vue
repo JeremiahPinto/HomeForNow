@@ -68,39 +68,42 @@
         Incorrect Login Details
       </b-alert>
 
-      <b-button type="submit"
-                @click="showDismissibleAlert=true"
-                variant="pink"
-                :style="{marginBottom: '10px;'}"
-      >
-        Get Suitable Vacancies
-      </b-button>
+      <div class="text-center">
+        <b-button type="submit"
+                  @click="showDismissibleAlert=true"
+                  variant="pink"
+                  :style="{ marginBottom: '10px' }"
+        >
+          Get Suitable Vacancies
+        </b-button>
+        <br>
+        <b-btn v-b-toggle.collapse1 variant="link">Privacy Information</b-btn>
+        <b-collapse id="collapse1">
+          <b-card border-variant="0">
+            <p class="text-left">
+              Anglicare WA (ABN 32797454970) is collecting your personal information so accommodation 
+              services can contact you about access to their services.  We may also collect personal 
+              information about you for this purpose from accommodation services.
+              <span class="bold">
+                By providing your details you consent to receiving messages from us 
+                (including via email and SMS) in connection with this purpose or in order to provide 
+                you with other information about our services
+              </span>
+              . If you do not provide the personal information collected, we will not be able process 
+              your request. Our Privacy Policy (available at 
+              <router-link to="terms_of_use"> www.homefornow.org.au/terms_of_use </router-link>
+              ) states how you can seek to access or correct any personal information we hold about 
+              you, how to complain about a privacy breach by us and how we will deal with a privacy 
+              complaint.  You can contact us at
+              <a href="mailto:info@anglicarewa.org.au"> info@anglicarewa.org.au </a>
+              .
+            </p>
+          </b-card>
+        </b-collapse>
+      </div>
+      
     </b-form>
 
-    <b-btn v-b-toggle.collapse1 variant="link">Privacy Information</b-btn>
-    <b-collapse id="collapse1">
-      <b-card border-variant="0">
-        <p>
-          Anglicare WA (ABN 32797454970) is collecting your personal information so accommodation 
-          services can contact you about access to their services.  We may also collect personal 
-          information about you for this purpose from accommodation services.
-          <span class="bold">
-            By providing your details you consent to receiving messages from us 
-            (including via email and SMS) in connection with this purpose or in order to provide 
-            you with other information about our services
-          </span>
-          . If you do not provide the personal information collected, we will not be able process 
-          your request. Our Privacy Policy (available at 
-          <a href="#/terms_of_use"> www.homefornow.org.au/terms_of_use </a>
-          ) states how you can seek to access or correct any personal information we hold about 
-          you, how to complain about a privacy breach by us and how we will deal with a privacy 
-          complaint.  You can contact us at
-          <a href="mailto:info@anglicarewa.org.au"> info@anglicarewa.org.au </a>
-          .
-        </p>
-      </b-card>
-    </b-collapse>
-    
     <div slot="modal-footer"/>
     
   </b-modal>
@@ -133,5 +136,9 @@ p {
 
 .card-body {
   padding: 5px;
+}
+
+.btn-link {
+  color: #000000c0;
 }
 </style>

@@ -2,7 +2,7 @@
   <b-navbar fixed="top" toggleable="md" type="light" variant="white" class="material-nav">
 
     <b-navbar-brand to="/">
-      <img src="../assets/logo.svg" class="d-inline-block align-top" :style="{width: '17px'}">
+      <img src="../assets/logo.svg" class="d-inline-block align-top" :style="{ width: '17px' }">
       HomeForNow
     </b-navbar-brand>
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>

@@ -32,13 +32,13 @@
       </b-col>
     </b-row>
 
-    <b-row style="margin-top: 16px;">
+    <b-row :style="{ marginTop: '16px' }">
       <b-col cols="12">
         <h2 class="bang"> If you need urgent assistance please contact: </h2>
       </b-col>
     </b-row>
 
-    <b-row style="margin-top: 16px;">
+    <b-row :style="{ marginTop: '16px' }">
       <b-col>
         <h3 class="bold">
           Entry Point
