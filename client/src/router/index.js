@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Index from '@/components/Index';
+import TermsOfUse from '@/components/TermsOfUse';
 import About from '@/components/About';
 import Contact from '@/components/Contact';
 import ServiceProfile from '@/components/ServiceProfile';
@@ -19,6 +20,11 @@ export default new Router({
       path: '/about',
       name: 'About',
       component: About,
+    },
+    {
+      path: '/terms_of_use',
+      name: 'Terms of Use',
+      component: TermsOfUse,
     },
     {
       path: '/contact',
