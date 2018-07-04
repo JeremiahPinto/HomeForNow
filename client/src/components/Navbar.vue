@@ -1,6 +1,5 @@
 <template>
-  <b-navbar fixed="top" toggleable="md" type="light" variant="white" class="material-nav">
-
+  <b-navbar id="navbar" fixed="top" toggleable="md" type="light" variant="white">
     <b-navbar-brand to="/">
       <img src="../assets/logo.svg" class="d-inline-block align-top" :style="{ width: '17px' }">
       HomeForNow
@@ -31,13 +30,28 @@ export default {
   components: {
     login: loginmodal,
   },
-  methods: {},
+  created() {
+    window.addEventListener('scroll', this.navFade);
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.navFade);
+  },
+  methods: {
+    navFade() {
+      const nav = document.querySelector('#navbar');
+      if (window.scrollY <= 10) {
+        nav.classList.remove('material-nav');
+      } else {
+        nav.classList.add('material-nav');
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
-.material-nav {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  z-index: 10;
-}
+  .material-nav {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    z-index: 10;
+  }
 </style>
