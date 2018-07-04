@@ -4,7 +4,7 @@
   "description": "A simple responsive web application that allows a homeless youth to easily search for available accommodation and then be able to quickly make a booking. Accommodation providers are provided with a simple interface to enter, modify and track their bed vacancies with a platform to receive accommodation enquiries.",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js --exec 'npm run lint && node'",
+    "start": "nodemon ./bin/www --exec 'npm run lint && node'",
     "lint": "eslint **/*.js"
   },
   "repository": {
@@ -21,11 +21,13 @@
   },
   "homepage": "https://github.com/JeremiahPinto/HomeForNow#readme",
   "dependencies": {
+    "async": "^2.6.1",
     "body-parser": "^1.18.3",
     "compression": "^1.7.2",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
+    "debug": "^3.1.0",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
@@ -36,7 +38,9 @@
     "nexmo": "^2.3.2",
     "nodemailer": "^4.6.7",
     "passport": "^0.4.0",
-    "passport-local": "^1.0.0"
+    "passport-facebook": "^2.1.1",
+    "passport-local": "^1.0.0",
+    "timeago": "^1.6.3"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
