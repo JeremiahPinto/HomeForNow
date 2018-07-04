@@ -18,6 +18,8 @@ A simple responsive web application that allows a homeless youth to easily searc
 
 You can access the deployed version on www.homefornow.org.au
 
+If on Windows, make sure that the line endings are `LF` and not `CRLF` or you will get an error
+
 To use the latest version, follow the given steps using the terminal:
 
 __`git clone https://github.com/JeremiahPinto/HomeForNow.git`. Download the latest stable version of the application.__
