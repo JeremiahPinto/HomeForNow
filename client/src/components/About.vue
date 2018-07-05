@@ -64,24 +64,24 @@
     </b-row>
 
     <b-row no-gutters align-v="center" align-h="center">
-      <b-col cols="12" sm="6" lg="3">
+      <b-col cols="6" lg="3">
         <b-img-lazy src="../assets/CFC_Logo.png" fluid class="logo"/>
       </b-col>
 
-      <b-col cols="12" sm="6" lg="3">
+      <b-col cols="6" lg="3">
         <b-img-lazy src="../assets/Luke_Logo.png" fluid class="logo"/>
       </b-col>
       
-      <b-col cols="12" sm="6" lg="3">
+      <b-col cols="6" lg="3">
         <b-img-lazy src="../assets/AWA_Horizontal.png" fluid class="logo"/>
       </b-col>
 
-      <b-col cols="12" sm="6" lg="3">
+      <b-col cols="6" lg="3">
         <b-img-lazy src="../assets/UWA_Horizontal.png" fluid class="logo"/>
       </b-col>
     </b-row>
 
-    <b-row :style="{ marginTop: '36px' }">
+    <b-row class="mt-5">
       <b-col>
         <h3 class="bold">
           Entry Point
@@ -114,7 +114,7 @@ export default {
 <style scoped>
 hr {
   height: 2px;
-  width: 52.3437vw;
+  width: 52.3437%;
   background-color: #616161;
   margin-top: 0px;
   float: left;
