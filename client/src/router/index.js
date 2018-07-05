@@ -5,6 +5,7 @@ import TermsOfUse from '@/components/TermsOfUse';
 import About from '@/components/About';
 import Contact from '@/components/Contact';
 import ServiceProfile from '@/components/ServiceProfile';
+import BedVacancies from '@/components/BedVacanciesList';
 
 Vue.use(Router);
 
@@ -35,6 +36,11 @@ export default new Router({
       path: '/service', // Need to fix this route to service name later on
       name: 'ServiceProfile',
       component: ServiceProfile,
+    },
+    {
+      path: '/search', // Need to fix this route to service name later on
+      name: 'BedVacancies',
+      component: BedVacancies,
     },
   ],
 });
