@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <navigation/>
-    <main :style="{marginTop: '112px'}">
+    <main :style="{ margin: '112px 0 30px' }">
       <router-view/>
     </main>
     <foot/>
@@ -23,16 +23,35 @@ export default {
 </script>
 
 <style>
+:root { 
+  --fluid-h1: calc(40px + 3vmin);
+  --fluid-h4: calc(14px + 1vmin);
+
+  --pink: #cc0066;
+  --pink-hover: #ff3399;
+  --white: #ffffff;
+  --black: #000000;
+  --alt-black: #333333;
+
+  /* font-size: 14px; */
+}
 #app {
-  background-color: #ffffff;
+  background-color: var(--white);
   font-family: "Roboto", sans-serif;
   /*use roboto*/
   font-style: normal;
-  color: #333333;
+  color: var(--black);
+  
 }
 
 .sec-color {
-  color: #cc0066;
+  color: var(--pink);
+}
+.alt-black {
+  color: var(--alt-black);
+}
+.black {
+  color: var(--black);
 }
 
 .bang {
@@ -40,35 +59,43 @@ export default {
   /*use bangers*/
 }
 
+.fluid-h1 {
+  font-size: var(--fluid-h1);
+}
+
+.fluid-h4 {
+  font-size: var(--fluid-h4);
+}
+
 .btn-pink {
   border-radius: 3px;
-  background-color: #cc0066;
+  background-color: var(--pink);
   font-size: 13.2px;
   font-weight: 500;
   letter-spacing: 1px;
-  color: #fff;
-  border: solid 2px #cc0066;
+  color: var(--white);
+  border: solid 2px var(--pink);
 }
 .btn-pink:hover,
 .btn-pink:focus {
-  background-color: #ff3399 !important;
-  border-color: #ff3399 !important;
+  background-color: var(--pink-hover) !important;
+  border-color: var(--pink-hover) !important;
 }
 
 .btn-outline-pink {
   border-radius: 3px;
-  background-color: #ffffff;
-  border: solid 2px #cc0066;
+  background-color: var(--white);
+  border: solid 2px var(--pink);
   font-size: 13.2px;
   font-weight: 500;
   letter-spacing: 1px;
-  color: #cc0066;
+  color: var(--pink);
 }
 .btn-outline-pink:hover,
 .btn-outline-pink:focus {
-  background-color: white;
-  border: 2px solid #ff3399 !important;
-  color: #ff3399 !important;
+  background-color: var(--white);
+  border: 2px solid var(--pink-hover) !important;
+  color: var(--pink-hover) !important;
 }
 
 .bold {
@@ -76,7 +103,7 @@ export default {
 }
 
 .modal-body {
-  padding: 0 16px;
+  padding: 0 1em;
 }
 .modal-footer {
   padding-top: 0;

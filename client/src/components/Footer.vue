@@ -1,5 +1,5 @@
 <template>
-  <b-navbar id="footer" type="light" variant="white" toggleable>
+  <b-navbar type="light" variant="white" toggleable>
     <b-container class="justify-content-center">
       <b-row>
         <b-col cols="12">
@@ -19,6 +19,5 @@
 
 <script>
 export default {
-  methods: {},
 };
 </script>
