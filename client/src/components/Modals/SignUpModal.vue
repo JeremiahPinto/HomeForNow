@@ -4,7 +4,7 @@
             footer-border-variant="0"
   >
     <div slot="modal-title">
-      <h2 class="sec-color bang"> Right Now </h2>
+      <h2 class="sec-color bang"> {{ title }} </h2>
       <h5 :style="{ color: '#606060', paddingBottom: '5px'}">
         Help us find <br>
         somewhere close to you.
@@ -113,6 +113,7 @@
 export default {
   data() {
     return {
+      title: 'Right Now',
       showDismissibleAlert: false,
       selected: null,
       fname: '',
