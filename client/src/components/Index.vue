@@ -3,10 +3,14 @@
 
     <b-row :style="{ marginBottom: '17vh' }">
       <b-col cols="12" md="8">
-        <b-img  src="../assets/landing_main.png"
-                alt="Let's find a home for now. Youth accommodation. Options in Perth, WA"
-                fluid
-        />
+        <h1 class="bang black fluid-h1">
+          Let's find a <br>
+          <span class="sec-color"> home for now. </span>
+        </h1>
+        <h4 class="fluid-h4">
+          Youth Accommodation <br>
+          Options in Perth, Western Australia
+        </h4>
       </b-col>      
     </b-row>
 
@@ -49,9 +53,16 @@
       </b-form-group>
     </b-form>
 
-    <b-row :style="{ marginTop: '160px' }">
-      <b-col>
-        <b-img src="../assets/landing_where.png" :style="{ height: '120px' }" fluid/>
+    <b-row :style="{ marginTop: '7em' }">
+      <b-col cols="12" style="display: flex;">
+        <h1 class="bang black fluid-h1" :style="{ zIndex: '2' }">
+          Where  <span class="alt-black"> to go </span> <br>
+          Who <span class="alt-black"> to call </span>
+        </h1>
+
+        <div style="display:flex; margin: -1em 0 0 -1.22rem;">
+          <h1 class="bang sec-color" :style="{ fontSize: 'calc(var(--fluid-h1) * 2.5)'}"> & </h1>
+        </div>
       </b-col>
     </b-row>
 
@@ -73,12 +84,12 @@
 
     <b-row>
       <b-col>
-        <h2 class="bang" :style="{ margin: '0' }"> Who To Call. </h2>
-        <h3 :style="{ marginBottom: '32px' }"> Numbers to call if you need help. </h3>
+        <h2 class="bang black" :style="{ margin: '0' }"> Who To Call. </h2>
+        <h3 class="alt-black mb-4"> Numbers to call if you need help. </h3>
       </b-col>
     </b-row>
 
-    <b-row :style="{ marginTop: '16px', marginBottom: '32px' }">
+    <b-row class="mt-2 mb-4">
       <b-col>
         <h3 class="bold">
           Entry Point
@@ -176,12 +187,11 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #location {
   border-radius: 3px;
   box-shadow: 0px 2px 7.8px 0.2px rgba(0, 0, 0, 0.3);
-  background-color: #ffffff;
-  border: solid 2px #333333;
+  background-color: var(--white);
+  border: solid 2px var(--black);
 }
 </style>
