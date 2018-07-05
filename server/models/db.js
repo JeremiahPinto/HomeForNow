@@ -6,9 +6,7 @@ if (process.env.NODE_ENV === 'production') {
   dbURI = process.env.MONGODB_URI;
 }
 // Using `mongoose.connect`...
-mongoose.connect(dbURI, {
-  useMongoClient: true,
-});
+mongoose.connect(dbURI);
 
 /** **********************************************
  *                                               *

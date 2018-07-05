@@ -8,11 +8,11 @@ const session = require('express-session');
 const passport = require('passport');
 
 require('dotenv').config();
-// require('./app_server/models/db');
-// require('./app_server/config/passport');
+require('./models/db');
+require('./config/passport');
 
-// const index = require('./app_server/routes/index');
-// const services = require('./app_server/routes/services');
+// const index = require('./routes/index');
+// const services = require('./routes/services');
 
 const app = express();
 
@@ -45,11 +45,7 @@ app.use(passport.session()); // persistent login sessions
  * Namespaced under '/'
  */
 // app.use('/', index);
-app.get('/status', (req, res) => {
-  res.send({
-    message: 'Hello World',
-  })
-});
+
 // app.use('/service', services);
 
 // catch 404 and forward to error handler
