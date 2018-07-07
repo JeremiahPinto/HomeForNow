@@ -6,14 +6,15 @@ const mongoose = require('mongoose');
  */
 const requestSchema = new mongoose.Schema({
   // Youth's first name
-  firstName: {
-    type: String,
-    required: true,
-  },
-  // Youth's last name
-  lastName: {
-    type: String,
-    required: true,
+  name: {
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastname: {
+      type: String,
+      required: true,
+    },
   },
   // Gender
   gender: {
@@ -27,14 +28,16 @@ const requestSchema = new mongoose.Schema({
     required: true,
     default: Date.now,
   },
-  // Phone Number
-  phoneNumber: {
-    type: String,
-    required: false,
-  },
-  email: {
-    type: String,
-    required: false,
+  contact: {
+    // Phone Number
+    phoneNumber: {
+      type: String,
+      required: false,
+    },
+    email: {
+      type: String,
+      required: false,
+    },
   },
   // Does the youth have a disability
   hasDisability: {
@@ -63,18 +66,16 @@ const requestSchema = new mongoose.Schema({
     default: null,
     required: false,
   },
-  note: {
-    type: String,
-    required: false,
-    default: '',
+  loaction: {
+    type: {
+      type: String,
+      default: 'Point',
+    },
+    coordinates: {
+      type: [Number],
+      default: [0, 0],
+    },
   },
-  // The status of the request
-  // status: {
-  //   type: String,
-  //   required: true,
-  //   enum: ['Unseen', 'Seen', 'Accepted', 'Rejected'],
-  //   default: 'Unseen',
-  // },
 });
 
 mongoose.model('Request', requestSchema);

@@ -198,25 +198,6 @@ const serviceSchema = new mongoose.Schema({
     required: true,
     enum: ['crisis', 'transitional'],
   },
-  // Which genders the service provider accommodates
-  gender: {
-    type: String,
-    required: true,
-    enum: ['Male', 'Female', 'Either'],
-    default: 'Either',
-  },
-  // Does the service provider accommodate disabled youth
-  disability: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
-  // Does the service provider accommodate parents with children
-  child: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
   // Service provider's address
   address: {
     type: addressSchema,
@@ -237,16 +218,10 @@ const serviceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // Are any beds available
-  available: {
-    type: Boolean,
-    default: false,
-    required: true,
-  },
   // Service provider's bed details, as an array
   beds: [bedSchema],
   // Timestamp for last updated
-  updated: {
+  lastUpdated: {
     type: Date,
     default: Date.now,
     required: true,
@@ -267,10 +242,21 @@ const serviceSchema = new mongoose.Schema({
     required: false,
   },
   // The requests submitted to the service provider
-  requests: {
-    type: [mongoose.Schema.Types.ObjectId],
-    required: false,
-  },
+  requests: [{
+    requestObj: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+    },
+    approved: {
+      type: Boolean,
+      default: false,
+    },
+    note: {
+      type: String,
+      required: false,
+      default: '',
+    },
+  }],
   // Opening hours of the service provider
   hours: {
     type: hoursSchema,
@@ -300,11 +286,6 @@ const serviceSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  // The requests submitted to the service provider that are currently open
-  openRequests: {
-    type: [mongoose.Schema.Types.ObjectId],
-    required: false,
-  },
   amenities: {
     type: [amenitiesSchema],
     required: false,
@@ -319,7 +300,8 @@ const serviceSchema = new mongoose.Schema({
 });
 
 serviceSchema.methods.encodeURI = function encodeURI(name) {
-  return name.toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_-]/g, ''); // TODO: Check for duplicates
+  return name.toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_-]/g, '');
+  // TODO: Check for duplicates
 };
 
 serviceSchema.methods.isAvailable = function isAvailable(beds) {

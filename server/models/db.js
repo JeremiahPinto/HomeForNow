@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-// var dbURI = 'mongodb://localhost/Loc8r';
-let dbURI = process.env.db_url;
-if (process.env.NODE_ENV === 'production') {
-  dbURI = process.env.MONGODB_URI;
-}
+const dbURI = 'mongodb://localhost:27017/homefornow';
+// let dbURI = process.env.db_url;
+// if (process.env.NODE_ENV === 'production') {
+//   dbURI = process.env.MONGODB_URI;
+// }
 // Using `mongoose.connect`...
 mongoose.connect(dbURI);
 
@@ -55,5 +55,6 @@ process.on('SIGTERM', () => {
 });
 
 require('./users');
+require('./admin');
 require('./requests');
 require('./services');

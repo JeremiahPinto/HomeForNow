@@ -5,13 +5,13 @@ const crypto = require('crypto');
 
 /**
  * General schema for all users of the application that have accounts e.g.
- * youth, service providers, admins
- *
+ * service providers, connect services, admins
  * Role:
- *  youth: Can create and read their own requests.
+ *  admin: Have full access to everything on the site and have CRUD operations on all services
  *  service_provider: Can perform CRUD operations on their own service, can
  *                    view homeless youth who need a bed
- *  admin: Have full access to everything on the site and have CRUD operations on all services
+ *  connect: Have acces to all the service_provider vacancies,
+ *           but have no way of changing them themselves
  */
 const userSchema = new mongoose.Schema({
   // Name
@@ -24,34 +24,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true,
-  },
-  // Phone Number
-  phoneNumber: {
-    type: String,
-    required: false,
-  },
-  // Date of birth
-  dob: {
-    type: Date,
-    required: true,
-  },
-  // Gender
-  gender: {
-    type: String,
-    required: true,
-    enum: ['Male', 'Female', 'Other'],
-  },
-  // Does the user have a disability
-  hasDisability: {
-    type: Boolean,
-    default: false,
-    required: false,
-  },
-  // Does the youth person have a child
-  hasChild: {
-    type: Boolean,
-    default: false,
-    required: false,
   },
   // Hash for password
   hash: {
@@ -66,16 +38,11 @@ const userSchema = new mongoose.Schema({
   // The user's role
   role: {
     type: String,
-    default: 'youth',
-    enum: ['youth', 'service_provider', 'admin', 'street_connect'],
+    default: 'admin',
+    enum: ['service_provider', 'admin', 'street_connect'],
   },
   // Service providers that this user works for
-  service: {
-    type: [mongoose.Schema.Types.ObjectId],
-    required: false,
-  },
-  // Requests that the user has created, open or closed
-  requests: {
+  linkedObject: {
     type: [mongoose.Schema.Types.ObjectId],
     required: false,
   },
