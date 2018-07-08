@@ -6,8 +6,11 @@
     </b-navbar-brand>
 
     <b-navbar-nav class="ml-auto">
-      <b-nav-item v-b-modal.loginmodal>Service Login</b-nav-item>
+      <b-nav-item v-if=!loggedIn v-b-modal.loginmodal>Service Login</b-nav-item>
       <login/>
+      <b-nav-item v-if=loggedIn
+                  @click=logout
+      >Logout</b-nav-item>
     </b-navbar-nav>
 
     <!-- <b-collapse is-nav id="nav_collapse">
@@ -37,6 +40,11 @@ export default {
   destroyed() {
     window.removeEventListener('scroll', this.navFade);
   },
+  computed: {
+    loggedIn() {
+      return this.$store.getters.isAuthenticated;
+    },
+  },
   methods: {
     navFade() {
       const nav = document.querySelector('#navbar');
@@ -45,6 +53,10 @@ export default {
       } else {
         nav.classList.add('material-nav');
       }
+    },
+    async logout() {
+      await this.$store.dispatch('AUTH_LOGOUT');
+      this.$router.push('/');
     },
   },
 };

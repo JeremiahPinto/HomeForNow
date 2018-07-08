@@ -1,5 +1,6 @@
 <template>
   <b-modal  id="loginmodal"
+            ref="modal"
             header-border-variant="0"
             footer-border-variant="0"
   >
@@ -7,10 +8,10 @@
       <h3 class="sec-color bang"> Service Login </h3>
     </div>
 
-    <b-form>
+    <b-form @submit.stop.prevent="login">
       <b-form-group label="Email Address:">
         <b-form-input type="email"
-                      v-model="service.email"
+                      v-model="email"
                       placeholder="example@example.com"
                       required
         >
@@ -19,7 +20,7 @@
 
       <b-form-group label="Password:">
         <b-form-input type="password"
-                      v-model="service.password"
+                      v-model="password"
                       required
         >
         </b-form-input>
@@ -36,7 +37,7 @@
 
       <b-button 
                 class="float-right"
-                @click="login"
+                type=submit
                 variant="pink"
       >
         Login
@@ -50,29 +51,27 @@
 </template>
 
 <script>
-import AuthenticationService from '@/services/AuthService';
 
 export default {
   data() {
     return {
       showDismissibleAlert: false,
-      service: {
-        email: '',
-        password: '',
-      },
+      email: '',
+      password: '',
       error: '',
     };
   },
   methods: {
     async login() {
-      this.showDismissibleAlert = true;
       try {
-        await AuthenticationService.login({
-          email: this.service.email,
-          password: this.service.password,
-        });
+        const email = this.email;
+        const password = this.password;
+        await this.$store.dispatch('AUTH_REQUEST', { email, password });
         this.showDismissibleAlert = false;
+        this.$refs.modal.hide();
+        this.$router.push('service');
       } catch (error) {
+        this.showDismissibleAlert = true;
         this.error = error.response.data.error;
       }
     },

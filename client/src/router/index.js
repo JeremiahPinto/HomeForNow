@@ -6,8 +6,12 @@ import About from '@/components/About';
 import Contact from '@/components/Contact';
 import ServiceProfile from '@/components/ServiceProfile';
 import BedVacancies from '@/components/BedVacanciesList';
+import ServiceDashboard from '@/components/ServiceDashboard';
+
+import store from '@/store/store';
 
 Vue.use(Router);
+
 
 export default new Router({
   mode: 'history',
@@ -33,7 +37,7 @@ export default new Router({
       component: Contact,
     },
     {
-      path: '/service', // Need to fix this route to service name later on
+      path: '/profile', // Need to fix this route to service name later on
       name: 'ServiceProfile',
       component: ServiceProfile,
     },
@@ -41,6 +45,23 @@ export default new Router({
       path: '/search', // Need to fix this route to service name later on
       name: 'BedVacancies',
       component: BedVacancies,
+    },
+    {
+      path: '/service', // Need to fix this route to service name later on
+      beforeEnter: (to, from, next) => {
+        if (store.getters.isAuthenticated) {
+          next();
+          return;
+        }
+        next('/');
+      },
+      children: [
+        {
+          path: '',
+          name: 'ServiceDashboard',
+          component: ServiceDashboard,
+        },
+      ],
     },
   ],
   scrollBehavior(to, from, savedPosition) {
