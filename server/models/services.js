@@ -299,14 +299,19 @@ const serviceSchema = new mongoose.Schema({
   },
 });
 
-serviceSchema.methods.encodeURI = function encodeURI(name) {
-  return name.toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_-]/g, '');
-  // TODO: Check for duplicates
+serviceSchema.static.encodeURI = async function encodeURI(name) {
+  const uri = name.toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_-]/g, '');
+  const duplicates = await this.find({ uri });
+  if (duplicates) {
+    console.log('URI ALREADY EXISTS!');
+    // TODO handle this
+  }
+  return uri;
 };
 
-serviceSchema.methods.isAvailable = function isAvailable(beds) {
+serviceSchema.methods.isAvailable = function isAvailable() {
   let av = false;
-  beds.forEach((bed) => {
+  this.beds.forEach((bed) => {
     if (bed.isOccupied === 'Available') {
       av = true;
     }

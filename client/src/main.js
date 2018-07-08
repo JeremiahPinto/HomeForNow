@@ -6,8 +6,13 @@ import BootstrapVue from 'bootstrap-vue';
 import * as VueGoogleMaps from 'vue2-google-maps';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
+import { sync } from 'vuex-router-sync';
+
 import App from './App';
 import router from './router';
+import store from './store/store';
+
+sync(store, router);
 
 Vue.use(BootstrapVue);
 Vue.use(VueGoogleMaps, {

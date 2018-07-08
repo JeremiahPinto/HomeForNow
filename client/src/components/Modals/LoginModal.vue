@@ -31,12 +31,12 @@
                 :show="showDismissibleAlert"
                 @dismissed="showDismissibleAlert=false"
       >
-        Incorrect Login Details
+        {{error}}
       </b-alert>
 
-      <b-button type="submit"
+      <b-button 
                 class="float-right"
-                @click="showDismissibleAlert=true"
+                @click="login"
                 variant="pink"
       >
         Login
@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import AuthenticationService from '@/services/AuthService';
+
 export default {
   data() {
     return {
@@ -58,7 +60,22 @@ export default {
         email: '',
         password: '',
       },
+      error: '',
     };
+  },
+  methods: {
+    async login() {
+      this.showDismissibleAlert = true;
+      try {
+        await AuthenticationService.login({
+          email: this.service.email,
+          password: this.service.password,
+        });
+        this.showDismissibleAlert = false;
+      } catch (error) {
+        this.error = error.response.data.error;
+      }
+    },
   },
 };
 </script>

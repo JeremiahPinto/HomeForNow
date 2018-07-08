@@ -11,8 +11,6 @@ require('dotenv').config();
 require('./models/db');
 require('./config/passport');
 
-// const index = require('./routes/index');
-// const services = require('./routes/services');
 
 const app = express();
 
@@ -44,9 +42,34 @@ app.use(passport.session()); // persistent login sessions
  *
  * Namespaced under '/'
  */
-// app.use('/', index);
+const index = require('./routes/index');
 
-// app.use('/service', services);
+app.use('/', index);
+
+const roles = require('./middleware/roles');
+/**
+ * Use our routes defined in /routes/service.js
+ *
+ * Namespaced under '/service'
+ *
+ * Uses passport tokens to make sure the user has access to these routes,
+ * and checks they are the correct role.
+ */
+const service = require('./routes/service');
+
+app.use('/service', passport.authenticate('jwt', { session: false }), roles.checkService, service);
+
+/**
+ * Use our routes defined in /routes/admin.js
+ *
+ * Namespaced under '/admin'
+ *
+ * Uses passport tokens to make sure the user has access to these routes,
+ * and checks they are the correct role.
+ */
+const admin = require('./routes/admin');
+
+app.use('/admin', passport.authenticate('jwt', { session: false }), roles.checkAdmin, admin);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

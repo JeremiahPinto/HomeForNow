@@ -1,6 +1,11 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
+const passportJWT = require('passport-jwt');
+
+const ExtractJWT = passportJWT.ExtractJwt;
+const JWTStrategy = passportJWT.Strategy;
+
 
 const User = mongoose.model('User');
 
@@ -39,53 +44,17 @@ passport.use(new LocalStrategy(
   },
 ));
 
-// =========================================================================
-// LOCAL SIGNUP ============================================================
-// =========================================================================
-/**
- * Commented out for now because we have a perfectly fine function for registering
- * in authentication controller but we may use this in future.
- */
-// passport.use('local-signup', new LocalStrategy(
-//   {
-//     // by default, local strategy uses username and password, we will override with email
-//     usernameField: 'email',
-//     passwordField: 'password',
-//     // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-//     passReqToCallback: true,
-//   },
-//   (req, email, password, done) => {
-//     // asynchronous
-//     process.nextTick(() => {
-//       //  Whether we're signing up or connecting an account, we'll need
-//       //  to know if the email address is in use.
-//       User.findOne({ 'local.email': email }, (err, existingUser) => {
-//         // if there are any errors, return the error
-//         if (err) {
-//           return done(err);
-//         }
-
-//         // check to see if there's already a user with that email
-//         if (existingUser) {
-//           return done(null, false, req.flash('error', 'That email is already taken.'));
-//         }
-
-//         const newUser = new User();
-
-//         newUser.email = email;
-//         newUser.setPassword(password);
-//         newUser.name = req.params('name');
-
-//         newUser.save((errU) => {
-//           if (errU) {
-//             console.log(`[ERROR] POST register: ${errU}`);
-//           }
-
-//           return done(null, newUser);
-//         });
-
-//         return 'this goes no where hehe';
-//       });
-//     });
-//   }
-// ));
+passport.use(new JWTStrategy(
+  {
+    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+    secretOrKey: process.env.jwt_secret,
+  }, (jwtPayload, done) => {
+    User.findById(jwtPayload.id)
+      .then((user) => {
+        done(null, user);
+      })
+      .catch((err) => {
+        done(err);
+      });
+  },
+));
