@@ -1,13 +1,19 @@
 <template>
   <b-container>
 
-    <b-row :style="{ marginBottom: '80px' }">
+    <b-row class="mb-3">
       <b-col cols="12">
         <h1 class="bang fluid-h1">
           Let's Find A <br>
           Home
           <span class="sec-color"> {{ type }} </span>
         </h1>
+      </b-col>
+    </b-row>
+
+    <b-row class="mb-5">
+      <b-col cols="12" offset-sm="6" sm="6" offset-md="7" md="5" offset-lg="9" lg="3">
+        <b-button variant="outline-dark" :style="{ width: 'inherit' }"> Apply To All </b-button>
       </b-col>
     </b-row>
 
@@ -18,6 +24,7 @@
           <p slot="description"> {{ description(Service) }} </p>
           <h3 slot="suburb"> {{ Service.suburb }} </h3>
           <h2 slot="name"> {{ Service.name }} </h2>
+          <h3 slot="availability" class="sec-color"> {{ Service.availability }} </h3>
         </Cards>
       </b-col>
     </b-row>
@@ -34,7 +41,7 @@ export default {
   },
   data() {
     return {
-      type: 'Right Now.',
+      type: 'Long Term',
       show: false,
       Services: [{
         name: 'Calvary House',

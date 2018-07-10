@@ -85,7 +85,7 @@ export default {
     return {
       show: false,
       Service: {
-        name: 'Y-SHAC Spearwood',
+        name: 'AYAS (Armadale Youth Accommodation Service)',
         description: 'hakjhjk',
         about: 'bigfnia',
         amenities: [{
