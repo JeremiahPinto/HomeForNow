@@ -1,5 +1,9 @@
 <template>
   <b-container>
+    <b-alert id="alert" :show="error.show" variant="danger" dismissible >
+      <h4 class="alert-heading">ERROR!!!</h4>
+      {{ error.error }}
+    </b-alert>
 
     <b-row :style="{ marginBottom: '17vh' }">
       <b-col cols="12" md="8">
@@ -14,7 +18,7 @@
       </b-col>      
     </b-row>
 
-    <b-form @submit="event.preventDefault()" id="locationForm">
+    <b-form v-on:submit.prevent id="locationForm">
       <!-- <b-form-group :invalid-feedback="invalidFeedback"
                     :valid-feedback="validFeedback"
                     :state="state"
@@ -22,47 +26,78 @@
       <b-form-group>
         <b-row>
           <b-col cols="12" lg="8">
-            <b-form-input id="location"
+            <!-- <b-form-input id="location"
                           v-model="location"
                           ref="autocomplete"
                           size="lg"
                           type="text"
                           placeholder="Where are you now - e.g. Subiaco"
-                          autocomplete="on"
                           required
             >
-            </b-form-input>
+            </b-form-input> -->
+
+            <GmapAutocomplete id="location"
+                              class="form-control form-control-lg"
+                              v-model="location"
+                              @place_changed="setPlace"
+                              :options="mapOptions"
+                              placeholder="Where are you now - e.g. Subiaco"
+                              selectFirstOnEnter
+                              autofocus
+                              required
+            >
+            </GmapAutocomplete>
+
 
             <b-row>
               <b-col sm="8" md="8">
-                <p :style="{ color: '#999', marginTop: '3px', paddingLeft: '18px' }">
-                  Use <a href="#" :style="{ color: '#999' }" @click="geolocation()"> my current location </a>
+                <p class="pl-4 mt-1" :style="{ color: '#999' }">
+                  Use <a  href="#"
+                          :style="{ color: '#999' }"
+                          @click="geolocation"
+                  >
+                    my current location
+                  </a>
                 </p>
               </b-col>
             </b-row>
           </b-col>
 
           <b-col cols="6" sm="4" offset-sm="1" lg="2" offset-lg="0">
-            <b-button type="submit" size="lg" variant="pink" :style="{ width: 'inherit', height: '50px' }" v-b-modal.signupmodal>Right Now</b-button>
+            <b-button variant="pink"
+                      :style="{ width: 'inherit', height: '50px' }"
+                      v-b-modal.signupmodal
+            >
+              Right Now
+            </b-button>
           </b-col>
           <b-col cols="6" sm="4" offset-sm="2" lg="2" offset-lg="0">
-            <b-button type="submit" size="lg" variant="outline-pink" :style="{ width: 'inherit', height: '50px' }" v-b-modal.signupmodal>Long Term</b-button>
+            <b-button variant="outline-pink"
+                      :style="{ width: 'inherit', height: '50px' }"
+                      v-b-modal.signupmodal
+            >
+              Long Term
+            </b-button>
           </b-col>
         </b-row>
+
         <signup/>
+
       </b-form-group>
     </b-form>
 
     <b-row :style="{ marginTop: '7em' }">
-      <b-col cols="12" style="display: flex;">
+      <b-col cols="12" class="d-inline-flex">
         <h1 class="bang black fluid-h1" :style="{ zIndex: '2' }">
           Where  <span class="alt-black"> to go </span> <br>
           Who <span class="alt-black"> to call </span>
         </h1>
 
-        <div style="display:flex; margin: -1em 0 0 -1.22rem;">
-          <h1 class="bang sec-color" :style="{ fontSize: 'calc(var(--fluid-h1) * 2.5)'}"> & </h1>
-        </div>
+        <h1 class="bang sec-color"
+            :style="{ fontSize: 'calc(var(--fluid-h1) * 2.555)', margin: '-1.1rem 0 0 -1.2rem'}"
+        >
+          &
+        </h1>
       </b-col>
     </b-row>
 
@@ -84,104 +119,139 @@
 
     <b-row>
       <b-col>
-        <h2 class="bang black" :style="{ margin: '0' }"> Who To Call. </h2>
-        <h3 class="alt-black mb-4"> Numbers to call if you need help. </h3>
+        <h2 class="bang black m-0">
+          Who To Call.
+        </h2>
+        <h3 class="alt-black mb-4">
+          Numbers to call if you need help.
+        </h3>
       </b-col>
     </b-row>
 
-    <b-row class="mt-2 mb-4">
-      <b-col>
-        <h3 class="bold">
-          Entry Point
-        </h3>
-        <h5 class="bold sec-color">
-          6496 0001 <br>
-          1800 124 684
-        </h5>
-      </b-col>
-
-      <b-col>
-        <h3 class="bold">
-          Crisis Care
-        </h3>
-        <h5 class="bold sec-color">
-          9223 1111 <br>
-          1800 199 008
-        </h5>
-      </b-col>
-    </b-row>
-
+    <contact/>
   </b-container>
 </template>
 
 <script>
+import { gmapApi } from 'vue2-google-maps';
 import signupmodal from './Modals/SignUpModal';
+import Contact from './Modules/ContactInfo';
 
 export default {
   components: {
     signup: signupmodal,
+    contact: Contact,
   },
   data() {
     return {
       location: '',
+      mapOptions: {
+        types: ['(cities)'],
+        componentRestrictions: { country: 'au' },
+      },
       user: {
         fname: '',
         lname: '',
         dob: '',
         gender: '',
         child: '',
-        lat: '',
-        long: '',
+        lat: 0.0,
+        long: 0.0,
         los: '',
+      },
+      error: {
+        error: '',
+        show: false,
       },
     };
   },
+  computed: {
+    google: gmapApi,
+  },
   methods: {
-    geolocation: () => {
-      const oldLocValue = document.getElementById('location').value;
+    async geolocation() {
+      const oldLocValue = this.location;
       this.location = 'Finding your location ...';
 
-      if (!navigator.geolocation) {
-        this.error = 'Geolocation is not supported by your browser';
-        document.getElementById('location').value = oldLocValue;
-      }
+      try {
+        const position = await this.getCurrentPosition();
 
-      function success(position) {
         this.user.lat = position.coords.latitude;
         this.user.long = position.coords.longitude;
-        this.location = this.user.lat.concat(', ').concat(this.user.long);
 
-        // const geocoder = new google.maps.Geocoder;
-        // geocoder.geocode( { 'address': lat + ', ' + lng }, (results, status) => {
-        //   if (status == 'OK')
-        //   {
-        //     let locality, state, country;
-        //     const addressComponents = results[0].address_components;
+        try {
+          const geocode = await this.geocode(('').concat(this.user.lat).concat(', ').concat(this.user.long));
 
-        //     for (i = 0; i < addressComponents.length; ++i)
-        //     {
-        //       if (!country && addressComponents[i].types[0] == 'country')
-        //         country = addressComponents[i].long_name;
-        //       else if (!state && addressComponents[i].types[0] == 'administrative_area_level_1')
-        //         state = addressComponents[i].short_name;
-        //       else if (!locality && addressComponents[i].types[0] == 'locality')
-        //         locality = addressComponents[i].long_name;
-        //     }
-        //     document.getElementById('location').value = locality + ' ' + state + ', ' + country;
-        //   }
-        //   else
-        //   {
-        //     console.log('Geocode was not successful for the following reason: ' + status);
-        //   }
-        // });
+          try {
+            const value = await this.getGeoVal(geocode.address_components);
+            this.location = value;
+          } catch (e) {
+            this.error.show = true;
+            this.error.error = e;
+            this.location = oldLocValue;
+          }
+        } catch (err) {
+          this.error.show = true;
+          this.error.error = 'Ooops, something went wrong';
+          this.location = oldLocValue;
+        }
+      } catch (error) {
+        this.error.show = true;
+        if (error.code === 1) {
+          this.error.error = 'Permission to access location has been denied';
+        }
+        if (error.code === 2) {
+          this.error.error = 'Unable to retrieve current location';
+        }
+        if (error.code === 3) {
+          this.error.error = 'Access to current location has timed out';
+        }
+        this.location = oldLocValue;
       }
-
-      function error() {
-        this.error = 'Unable to retrieve your location';
-        document.getElementById('location').value = oldLocValue;
-      }
-
-      navigator.geolocation.getCurrentPosition(success, error);
+    },
+    async getCurrentPosition(options) {
+      return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, options);
+      });
+    },
+    async geocode(add) {
+      const geocoder = new this.google.maps.Geocoder; // eslint-disable-line
+      return new Promise((resolve, reject) => {
+        geocoder.geocode({ address: add }, (results, status) => { // eslint-disable-line
+          if (status === this.google.maps.GeocoderStatus.OK) {
+            resolve(results[0]);
+          } else {
+            reject(status);
+          }
+        });
+      });
+    },
+    async getGeoVal(addressComponents) {
+      let locality;
+      let state;
+      let country;
+      return new Promise((resolve, reject) => {
+        addressComponents.forEach((element) => {
+          if (!country && element.types[0] === 'country') {
+            country = element.long_name;
+          }
+          if (!state && element.types[0] === 'administrative_area_level_1') {
+            state = element.short_name;
+          }
+          if (!locality && element.types[0] === 'locality') {
+            locality = element.long_name;
+          }
+        });
+        if (country && state && locality) {
+          resolve(locality.concat(', ').concat(state).concat(', ').concat(country));
+        } else {
+          reject('Unable to retrieve location');
+        }
+      });
+    },
+    async setPlace(place) {
+      this.user.lat = await place.geometry.location.lat();
+      this.user.long = await place.geometry.location.lng();
     },
   },
 };
@@ -189,9 +259,19 @@ export default {
 
 <style scoped>
 #location {
+  height: 50px;
+  font-size: 17px;
   border-radius: 3px;
   box-shadow: 0px 2px 7.8px 0.2px rgba(0, 0, 0, 0.3);
   background-color: var(--white);
   border: solid 2px var(--black);
+}
+
+#alert {
+  margin: 10px;
+  position: fixed;
+  top: 60px;
+  right: 0;
+  z-index: 10;
 }
 </style>

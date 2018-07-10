@@ -18,10 +18,30 @@ sync(store, router);
 Vue.use(BootstrapVue);
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyA3i_JFMmmWMoWvhYFQ8BubRxjCZddZNFw', // need to make it env "REPLACE-THIS-WITH-YOUR-KEY-FROM-ABOVE",
-    libraries: 'places', // necessary for places input
+    key: 'AIzaSyBDNE4k2KPwi1xE7bjbFIYXB4Na3HKHMxk',
+    libraries: 'places', // This is required if you use the Autocomplete plugin
+    // OR: libraries: 'places,drawing'
+    // OR: libraries: 'places,drawing,visualization'
+    // (as you require)
+
+    // // If you want to set the version, you can do so:
+    // v: '3.26',
   },
+
+  // // If you intend to programmatically custom event listener code
+  // // (e.g. `this.$refs.gmap.$on('zoom_changed', someFunc)`)
+  // // instead of going through Vue templates (e.g. `<GmapMap @zoom_changed="someFunc">`)
+  // // you might need to turn this on.
+  // autobindAllEvents: false,
+
+  // // If you want to manually install components, e.g.
+  // // import {GmapMarker} from 'vue2-google-maps/src/components/marker'
+  // // Vue.component('GmapMarker', GmapMarker)
+  // // then disable the following:
+  // installComponents: true,
 });
+
+
 Vue.config.productionTip = false;
 
 const token = localStorage.getItem('user-token');

@@ -69,7 +69,7 @@ export default {
 }
 
 .bang {
-  font-family: "Bangers", sans-serif;
+  font-family: "Bangers", cursive;
   /*use bangers*/
 }
 
@@ -121,5 +121,15 @@ export default {
 }
 .modal-footer {
   padding-top: 0;
+}
+
+/* google autocomplete drop down */
+.pac-icon {
+  width: 0;
+  background-image: none;
+}
+.pac-item {
+  font-family: 'Roboto', sans-serif;
+  color: #999999;
 }
 </style>
