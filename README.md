@@ -1,5 +1,8 @@
 # HomeForNow
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/3e37825aea242b50389b/maintainability)](https://codeclimate.com/github/JeremiahPinto/HomeForNow/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/3e37825aea242b50389b/test_coverage)](https://codeclimate.com/github/JeremiahPinto/HomeForNow/test_coverage)
+
 ## Context
 
 This application will digitalise the youth crisis accommodation sector.
