@@ -73,11 +73,11 @@
       </b-col>
       
       <b-col cols="6" lg="3">
-        <b-img-lazy src="../assets/AWA_Horizontal.png" fluid class="logo"/>
+        <b-img-lazy src="../assets/Anglicare_Logo.png" fluid class="logo"/>
       </b-col>
 
       <b-col cols="6" lg="3">
-        <b-img-lazy src="../assets/UWA_Horizontal.png" fluid class="logo"/>
+        <b-img-lazy src="../assets/UWA_Logo.png" fluid class="logo"/>
       </b-col>
     </b-row>
 
