@@ -35,10 +35,13 @@
         {{error}}
       </b-alert>
 
-      <b-button 
-                class="float-right"
-                type=submit
+      <b-button class="float-left" variant="link">
+        Forgot your password?
+      </b-button>
+      <b-button class="float-right"
+                type="submit"
                 variant="pink"
+                :style="{ width: '90px' }"
       >
         Login
       </b-button>
