@@ -39,11 +39,11 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     default: 'admin',
-    enum: ['service_provider', 'admin', 'street_connect'],
+    enum: ['service', 'admin', 'street_connect'],
   },
   // Service providers that this user works for
   linkedObject: {
-    type: [mongoose.Schema.Types.ObjectId],
+    type: mongoose.Schema.Types.ObjectId,
     required: false,
   },
   resetPasswordToken: String,

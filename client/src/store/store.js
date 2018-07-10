@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import AuthService from '@/services/AuthService';
+import router from '@/router/index';
 
 Vue.use(Vuex);
 
@@ -50,6 +51,11 @@ export const UserModule = {
             localStorage.setItem('user-token', token); // store the token in localstorage
             AuthService.setToken(token);
             commit('AUTH_SUCCESS', token);
+            if (resp.data.user.role === 'admin') {
+              router.push('/admin');
+            } else if (resp.data.user.role === 'service') {
+              router.push('/service');
+            }
             resolve(resp);
           })
           .catch((err) => {

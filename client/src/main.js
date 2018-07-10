@@ -7,7 +7,7 @@ import * as VueGoogleMaps from 'vue2-google-maps';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import { sync } from 'vuex-router-sync';
-import axios from 'axios';
+import AuthService from './services/AuthService';
 
 import App from './App';
 import router from './router';
@@ -46,7 +46,7 @@ Vue.config.productionTip = false;
 
 const token = localStorage.getItem('user-token');
 if (token) {
-  axios.defaults.headers.common.Authorization = token;
+  AuthService.setToken(token);
 }
 
 /* eslint-disable no-new */

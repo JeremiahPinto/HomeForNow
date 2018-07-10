@@ -7,6 +7,7 @@ import Contact from '@/components/Contact';
 import ServiceProfile from '@/components/ServiceProfile';
 import BedVacancies from '@/components/BedVacanciesList';
 import ServiceDashboard from '@/components/ServiceDashboard';
+import AdminDashboard from '@/components/AdminDashboard';
 
 import store from '@/store/store';
 
@@ -55,13 +56,20 @@ export default new Router({
         }
         next('/');
       },
-      children: [
-        {
-          path: '',
-          name: 'ServiceDashboard',
-          component: ServiceDashboard,
-        },
-      ],
+      name: 'ServiceDashboard',
+      component: ServiceDashboard,
+    },
+    {
+      path: '/admin', // Need to fix this route to service name later on
+      beforeEnter: (to, from, next) => {
+        if (store.getters.isAuthenticated) {
+          next();
+          return;
+        }
+        next('/');
+      },
+      name: 'AdminDashboard',
+      component: AdminDashboard,
     },
   ],
   scrollBehavior(to, from, savedPosition) {

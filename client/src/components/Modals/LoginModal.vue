@@ -67,12 +67,13 @@ export default {
   methods: {
     async login() {
       try {
-        const email = this.email;
-        const password = this.password;
-        await this.$store.dispatch('AUTH_REQUEST', { email, password });
+        await this.$store.dispatch('AUTH_REQUEST', {
+          email: this.email,
+          password: this.password,
+        });
         this.showDismissibleAlert = false;
         this.$refs.modal.hide();
-        this.$router.push('service');
+        // this.$router.push('service');
       } catch (error) {
         this.showDismissibleAlert = true;
         this.error = error.response.data.error;

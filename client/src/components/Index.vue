@@ -19,23 +19,9 @@
     </b-row>
 
     <b-form v-on:submit.prevent id="locationForm">
-      <!-- <b-form-group :invalid-feedback="invalidFeedback"
-                    :valid-feedback="validFeedback"
-                    :state="state"
-      >  use below for now until proper validation is used-->
       <b-form-group>
         <b-row>
           <b-col cols="12" lg="8">
-            <!-- <b-form-input id="location"
-                          v-model="location"
-                          ref="autocomplete"
-                          size="lg"
-                          type="text"
-                          placeholder="Where are you now - e.g. Subiaco"
-                          required
-            >
-            </b-form-input> -->
-
             <GmapAutocomplete id="location"
                               class="form-control form-control-lg"
                               v-model="location"
@@ -47,7 +33,6 @@
                               required
             >
             </GmapAutocomplete>
-
 
             <b-row>
               <b-col sm="8" md="8">
@@ -149,7 +134,7 @@ export default {
         types: ['(cities)'],
         componentRestrictions: { country: 'au' },
       },
-      user: {
+      request: {
         fname: '',
         lname: '',
         dob: '',
@@ -176,11 +161,15 @@ export default {
       try {
         const position = await this.getCurrentPosition();
 
-        this.user.lat = position.coords.latitude;
-        this.user.long = position.coords.longitude;
+        this.request
+.lat = position.coords.latitude;
+        this.request
+.long = position.coords.longitude;
 
         try {
-          const geocode = await this.geocode(('').concat(this.user.lat).concat(', ').concat(this.user.long));
+          const geocode = await this.geocode(('').concat(this.request
+  .lat).concat(', ').concat(this.request
+  .long));
 
           try {
             const value = await this.getGeoVal(geocode.address_components);
@@ -250,8 +239,8 @@ export default {
       });
     },
     async setPlace(place) {
-      this.user.lat = await place.geometry.location.lat();
-      this.user.long = await place.geometry.location.lng();
+      this.request.lat = await place.geometry.location.lat();
+      this.request.long = await place.geometry.location.lng();
     },
   },
 };

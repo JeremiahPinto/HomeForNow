@@ -14,7 +14,6 @@ function jwtSignUser(user) {
 
 function loginHelper(req, res, next, user, error) {
   if (error) {
-    console.log(error);
     next(error);
   } else {
     const newUser = {

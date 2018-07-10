@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const UserModel = mongoose.model('User');
+
 /**
  * Schema for the address of a service provider.
  * @type {mongoose.Schema}
@@ -139,21 +141,6 @@ const bedSchema = new mongoose.Schema({
 });
 
 /**
- * Schema for the age range that a service provider accommodates.
- * @type {mongoose.Schema}
- */
-const ageSchema = new mongoose.Schema({
-  minAge: {
-    type: Number,
-    required: true,
-  },
-  maxAge: {
-    type: Number,
-    required: true,
-  },
-});
-
-/**
  * Schema for the amenities that a service provides.
  * name is for the radio buttons,
  * label is the name on the amenities list,
@@ -187,11 +174,6 @@ const settingsSchema = new mongoose.Schema({
  * @type {mongoose.Schema}
  */
 const serviceSchema = new mongoose.Schema({
-  // Service privider's name
-  name: {
-    type: String,
-    required: true,
-  },
   // The type of service provider
   serviceType: {
     type: String,
@@ -205,8 +187,14 @@ const serviceSchema = new mongoose.Schema({
   },
   // Age range for stay
   ageRange: {
-    type: ageSchema,
-    required: true,
+    minAge: {
+      type: Number,
+      required: true,
+    },
+    maxAge: {
+      type: Number,
+      required: true,
+    },
   },
   // Average length of stay for the user, in months
   stayLength: {
@@ -299,7 +287,7 @@ const serviceSchema = new mongoose.Schema({
   },
 });
 
-serviceSchema.static.encodeURI = async function encodeURI(name) {
+serviceSchema.statics.encodeURI = async function encodeURI(name) {
   const uri = name.toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_-]/g, '');
   const duplicates = await this.find({ uri });
   if (duplicates) {
@@ -307,6 +295,12 @@ serviceSchema.static.encodeURI = async function encodeURI(name) {
     // TODO handle this
   }
   return uri;
+};
+
+serviceSchema.methods.deleteService = async function deleteService() {
+  // eslint-disable-next-line
+  await UserModel.find({ObjectLinked: this._id}).remove();
+  this.remove();
 };
 
 serviceSchema.methods.isAvailable = function isAvailable() {

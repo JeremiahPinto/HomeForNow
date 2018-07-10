@@ -2,7 +2,7 @@ import Api from '@/services/Api';
 
 export default {
   setToken(token) {
-    Api().defaults.headers.common.Authorization = token;
+    Api().defaults.headers.common.Authorization = 'Bearer '.concat(token);
   },
   clearToken() {
     delete Api().defaults.headers.common.Authorization;
