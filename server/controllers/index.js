@@ -12,7 +12,7 @@ function jwtSignUser(user) {
   });
 }
 
-function loginHelper(req, res, next, user, error) {
+function loginHelper(res, next, user, error) {
   if (error) {
     next(error);
   } else {
@@ -36,7 +36,7 @@ module.exports = {
       user.name = req.body.name;
       user.setPassword(req.body.password);
       const savedUser = await user.save();
-      req.login(savedUser, err => loginHelper(req, res, next, savedUser, err));
+      req.login(savedUser, err => loginHelper(res, next, savedUser, err));
     } catch (err) {
       res.status(500).send({
         error: err,
@@ -53,7 +53,7 @@ module.exports = {
             error: 'username/password pair does not match',
           });
         } else {
-          req.login(user, error => loginHelper(req, res, next, user, error));
+          req.login(user, error => loginHelper(res, next, user, error));
         }
       })(req, res, next);
     } catch (err) {

@@ -57,7 +57,7 @@ const roles = require('./middleware/roles');
  */
 const service = require('./routes/service');
 
-app.use('/service', passport.authenticate('jwt', { session: false }), roles.checkService, service);
+app.use('/service', passport.authenticate('jwt', { session: false }), roles.checkRole('service'), service);
 
 /**
  * Use our routes defined in /routes/admin.js
@@ -69,7 +69,7 @@ app.use('/service', passport.authenticate('jwt', { session: false }), roles.chec
  */
 const admin = require('./routes/admin');
 
-app.use('/admin', passport.authenticate('jwt', { session: false }), roles.checkAdmin, admin);
+app.use('/admin', passport.authenticate('jwt', { session: false }), roles.checkRole('admin'), admin);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

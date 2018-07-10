@@ -13,6 +13,14 @@ import store from '@/store/store';
 
 Vue.use(Router);
 
+const isAuthenticated = (to, from, next) => {
+  if (store.getters.isAuthenticated) {
+    next();
+    return;
+  }
+  next('/');
+};
+
 
 export default new Router({
   mode: 'history',
@@ -49,25 +57,13 @@ export default new Router({
     },
     {
       path: '/service', // Need to fix this route to service name later on
-      beforeEnter: (to, from, next) => {
-        if (store.getters.isAuthenticated) {
-          next();
-          return;
-        }
-        next('/');
-      },
+      beforeEnter: isAuthenticated,
       name: 'ServiceDashboard',
       component: ServiceDashboard,
     },
     {
       path: '/admin', // Need to fix this route to service name later on
-      beforeEnter: (to, from, next) => {
-        if (store.getters.isAuthenticated) {
-          next();
-          return;
-        }
-        next('/');
-      },
+      beforeEnter: isAuthenticated,
       name: 'AdminDashboard',
       component: AdminDashboard,
     },

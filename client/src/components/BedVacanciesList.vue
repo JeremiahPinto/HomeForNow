@@ -35,6 +35,8 @@
 <script>
 import BedVacancies from './Modules/BedVacancies';
 
+import SearchService from '../services/SearchService';
+
 export default {
   components: {
     Cards: BedVacancies,
@@ -64,6 +66,9 @@ export default {
       }
       return Service.description;
     },
+  },
+  async mounted() {
+    this.Services = (await SearchService.post(this.type, {})).data;
   },
 };
 </script>

@@ -313,4 +313,6 @@ serviceSchema.methods.isAvailable = function isAvailable() {
   return av;
 };
 
+serviceSchema.index({ 'address.coordinates.coordinates': '2dsphere' });
+
 mongoose.model('Service', serviceSchema);

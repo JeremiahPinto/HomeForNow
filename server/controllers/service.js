@@ -1,14 +1,12 @@
 module.exports = {
-  async index(req, res) {
+  async index(req, res, next) {
     try {
       res.send({
         message: 'You have reached the service page',
         user: req.user,
       });
     } catch (error) {
-      res.status(500).send({
-        error,
-      });
+      next(error);
     }
   },
 };

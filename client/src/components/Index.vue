@@ -161,15 +161,11 @@ export default {
       try {
         const position = await this.getCurrentPosition();
 
-        this.request
-.lat = position.coords.latitude;
-        this.request
-.long = position.coords.longitude;
+        this.request.lat = position.coords.latitude;
+        this.request.long = position.coords.longitude;
 
         try {
-          const geocode = await this.geocode(('').concat(this.request
-  .lat).concat(', ').concat(this.request
-  .long));
+          const geocode = await this.geocode(('').concat(this.request.lat).concat(', ').concat(this.request.long));
 
           try {
             const value = await this.getGeoVal(geocode.address_components);

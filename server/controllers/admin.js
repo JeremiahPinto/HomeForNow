@@ -31,7 +31,7 @@ module.exports = {
       });
     }
   },
-  async createService(req, res) {
+  async createService(req, res, next) {
     let user;
     let savedService;
     try {
@@ -43,10 +43,7 @@ module.exports = {
       service.uri = await ServiceModel.encodeURI(user.name);
       savedService = await service.save();
     } catch (err) {
-      console.log(err);
-      res.status(500).send({
-        error: err,
-      });
+      next(err);
     }
     try {
       // eslint-disable-next-line
@@ -59,10 +56,7 @@ module.exports = {
     } catch (error) {
       // eslint-disable-next-line
       ServiceModel.remove({ id: savedService._id });
-      console.log(error);
-      res.status(500).send({
-        error,
-      });
+      next(error);
     }
   },
   async wipeServices(req, res) {
