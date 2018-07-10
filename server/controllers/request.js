@@ -24,42 +24,26 @@ function getAge(dateString) {
 
 module.exports = {
   async search(req, res, next) {
-    // const name = req.body.fName.concat(' ', req.body.lName);
     const type = req.body.lengthOfStay;
     const age = getAge(req.body.dob);
     const bedType = req.body.child ? 'ParentChild' : 'Single';
     const genders = (req.body.gender === 'Other') ? ['Male', 'Female', 'Either'] : [req.body.gender, 'Either'];
-
-
     try {
-      const services = await ServiceModel.find(
-        {
-          $and: [
-            { serviceType: type },
-            { 'ageRange.maxAge': { $gte: age } },
-            { 'ageRange.minAge': { $lte: age } },
-            {
-              'address.coordinates.coordinates': {
-                $near: {
-                  $geometry: { type: 'Point', coordinates: [req.body.long, req.body.lat] },
-                },
-              },
+      const services = await ServiceModel.find({
+        $and: [
+          { serviceType: type },
+          { 'ageRange.maxAge': { $gte: age } },
+          { 'ageRange.minAge': { $lte: age } },
+          {
+            'address.coordinates.coordinates': {
+              $near: { $geometry: { type: 'Point', coordinates: [req.body.long, req.body.lat] } },
             },
-            {
-              beds: {
-                bedType,
-                genders: { $in: genders },
-              },
-            },
-          ],
-        },
-        'name description address uri logo thankyouMessage img beds',
-      );
-      res.send({
-        services,
-      });
+          },
+          { beds: { bedType, genders: { $in: genders } } },
+        ],
+      }, 'name description address uri logo thankyouMessage img beds');
+      res.send({ services });
     } catch (error) {
-      console.log(error);
       next(error);
     }
   },
