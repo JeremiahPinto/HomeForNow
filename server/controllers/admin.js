@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
 const mongoose = require('mongoose');
 const async = require('async');
 
@@ -6,7 +7,7 @@ const ServiceModel = mongoose.model('Service');
 
 
 module.exports = {
-  async index(req, res) {
+  async index(req, res, next) {
     try {
       async.parallel(
         {
@@ -26,40 +27,35 @@ module.exports = {
         },
       );
     } catch (error) {
-      res.status(500).send({
-        error,
-      });
-    }
-  },
-  async createService(req, res, next) {
-    let user;
-    let savedService;
-    try {
-      user = new UserModel(req.body);
-      user.setPassword(req.body.password);
-      user.role = 'service';
-
-      const service = new ServiceModel(req.body);
-      service.uri = await ServiceModel.encodeURI(user.name);
-      savedService = await service.save();
-    } catch (err) {
-      next(err);
-    }
-    try {
-      // eslint-disable-next-line
-      user.linkedObject = savedService._id;
-      const savedUser = await user.save();
-      res.send({
-        user: savedUser,
-        service: savedService,
-      });
-    } catch (error) {
-      // eslint-disable-next-line
-      ServiceModel.remove({ id: savedService._id });
       next(error);
     }
   },
-  async wipeServices(req, res) {
+  async createService(req, res, next) {
+    const newService = req.body.service;
+    try {
+      const user = new UserModel(newService);
+      user.setPassword(newService.password);
+      user.role = 'service';
+
+      const service = new ServiceModel(newService);
+      service.uri = await ServiceModel.encodeURI(user.name);
+      const savedService = await service.save();
+      try {
+        user.linkedObject = savedService._id;
+        const savedUser = await user.save();
+        res.send({
+          user: savedUser,
+          service: savedService,
+        });
+      } catch (error) {
+        ServiceModel.remove({ id: savedService._id });
+        next(error);
+      }
+    } catch (err) {
+      next(err);
+    }
+  },
+  async wipeServices(req, res, next) {
     try {
       await async.parallel({
         services: (done) => {
@@ -73,10 +69,7 @@ module.exports = {
         message: 'wiped',
       });
     } catch (error) {
-      console.log(error);
-      res.status(500).send({
-        error,
-      });
+      next(error);
     }
   },
 };

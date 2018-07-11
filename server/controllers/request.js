@@ -13,15 +13,6 @@ function getAge(dateString) {
   return age;
 }
 
-// function hasBedWithChild(services) {
-//   return services.filter((service) => {
-//     for (let i = 0; i < service.beds.length; i += 1) {
-//       if (service.beds[i].bedType === 'ParentChild') return true;
-//     }
-//     return false;
-//   });
-// }
-
 module.exports = {
   async search(req, res, next) {
     const type = req.body.lengthOfStay;
@@ -155,14 +146,3 @@ module.exports = {
 //       throw new Error(err);
 //     });
 // };
-
-// function servicesWithBedGender(services, gender) {
-//   return services.filter((service) => {
-//     for (let i = 0; i < service.beds.length; i += 1) {
-//       if (service.beds[i].gender === 'Either' || service.beds[i].gender === gender) {
-//         return true;
-//       }
-//     }
-//     return false;
-//   });
-// }
