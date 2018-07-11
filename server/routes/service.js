@@ -6,4 +6,6 @@ const Service = require('../controllers/service');
 
 router.get('/', Service.index);
 
+router.post('/update', Service.updateService);
+
 module.exports = router;

@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
 const passport = require('passport');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
@@ -6,7 +7,6 @@ const User = mongoose.model('User');
 
 function jwtSignUser(user) {
   const ONE_WEEK = 7 * 24 * 60 * 60;
-  // eslint-disable-next-line
   return jwt.sign({ id: user._id }, process.env.jwt_secret, {
     expiresIn: ONE_WEEK,
   });
