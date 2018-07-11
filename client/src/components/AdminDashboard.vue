@@ -18,13 +18,19 @@
     <b-alert variant="danger">
       {{error}}
     </b-alert>
+
+    <service/>
   </b-container>
 </template>
 
 <script>
 import AdminDashService from '@/services/AdminDashService';
+import ServiceDetails from './Modules/ServiceDetails';
 
 export default {
+  components: {
+    service: ServiceDetails,
+  },
   data() {
     return {
       message: 'No message',
