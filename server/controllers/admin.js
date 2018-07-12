@@ -31,14 +31,15 @@ module.exports = {
     }
   },
   async createService(req, res, next) {
-    const newService = req.body.service;
+    const newService = req.body;
     try {
       const user = new UserModel(newService);
+      user.email = newService.contact.email;
       user.setPassword(newService.password);
       user.role = 'service';
 
       const service = new ServiceModel(newService);
-      service.uri = await ServiceModel.encodeURI(user.name);
+      // service.uri = await ServiceModel.encodeURI(user.name);
       const savedService = await service.save();
       try {
         user.linkedObject = savedService._id;

@@ -202,9 +202,15 @@ const serviceSchema = new mongoose.Schema({
     required: true,
   },
   // Service provider's phone number
-  phoneNumber: {
-    type: String,
-    required: true,
+  contact: {
+    number: {
+      type: String,
+      required: true,
+    },
+    landline: {
+      type: String,
+      required: true,
+    },
   },
   // Service provider's bed details, as an array
   beds: [bedSchema],
@@ -271,7 +277,7 @@ const serviceSchema = new mongoose.Schema({
   // A URI that is used to identify pages/resources related to the service provider
   uri: {
     type: String,
-    required: true,
+    required: false,
     unique: true,
   },
   amenities: {

@@ -1,6 +1,6 @@
 <template>
   <b-container fluid>
-    <b-form>
+    <b-form @submit.stop.prevent="submit">
       <b-row>
         <b-col cols="12" md="7">
           <b-form-group label="Service Name:">
@@ -181,7 +181,7 @@
         </b-col>
       </b-row>
 
-      <b-button variant="pink" :style="{ width: '90px' }">Submit</b-button>
+      <b-button variant="pink" type="submit" :style="{ width: '90px' }">Submit</b-button>
     </b-form>
     
   </b-container>
@@ -189,6 +189,7 @@
 
 <script>
 import { gmapApi } from 'vue2-google-maps';
+import AdminDashService from '@/services/AdminDashService';
 
 export default {
   data() {
@@ -322,6 +323,13 @@ export default {
           }
         });
       });
+    },
+    async submit() {
+      try {
+        await AdminDashService.addService(this.Service);
+      } catch (error) {
+        this.error = error.response.error;
+      }
     },
   },
 };
