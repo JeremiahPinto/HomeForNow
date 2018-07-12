@@ -18,7 +18,7 @@ module.exports = {
     }
   },
   async updateService(req, res, next) {
-    const { service } = req.body.service;
+    const service = req.body;
     try {
       const updatedUser = await UserModel.findOneAndUpdate({
         _id: req.user._id,
