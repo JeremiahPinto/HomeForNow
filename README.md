@@ -2,6 +2,7 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/3e37825aea242b50389b/maintainability)](https://codeclimate.com/github/JeremiahPinto/HomeForNow/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/3e37825aea242b50389b/test_coverage)](https://codeclimate.com/github/JeremiahPinto/HomeForNow/test_coverage)
+[![Coverage Status](https://coveralls.io/repos/github/JeremiahPinto/HomeForNow/badge.svg?branch=master)](https://coveralls.io/github/JeremiahPinto/HomeForNow?branch=master)
 
 ## Context
 
