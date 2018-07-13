@@ -21,18 +21,17 @@ module.exports = {
     const genders = (req.body.gender === 'Other') ? ['Male', 'Female', 'Either'] : [req.body.gender, 'Either'];
     try {
       const services = await ServiceModel.find({
+        serviceType: type,
         $and: [
-          { serviceType: type },
-          { 'ageRange.maxAge': { $gte: age } },
           { 'ageRange.minAge': { $lte: age } },
-          {
-            'address.coordinates.coordinates': {
-              $near: { $geometry: { type: 'Point', coordinates: [req.body.long, req.body.lat] } },
-            },
-          },
-          { beds: { bedType, genders: { $in: genders } } },
+          { 'ageRange.maxAge': { $gte: age } },
         ],
-      }, 'name description address uri logo thankyouMessage img beds');
+        'address.coordinates.coordinates': {
+          $near: { $geometry: { type: 'Point', coordinates: [req.body.long, req.body.lat] } },
+        },
+        'beds.bedType': bedType,
+        'beds.gender': { $in: genders },
+      });
       res.send({ services });
     } catch (error) {
       next(error);
