@@ -209,7 +209,7 @@ const serviceSchema = new mongoose.Schema({
     },
     landline: {
       type: String,
-      required: true,
+      required: false,
     },
   },
   // Service provider's bed details, as an array
