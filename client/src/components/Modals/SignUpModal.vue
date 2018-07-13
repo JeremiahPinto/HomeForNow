@@ -15,10 +15,10 @@
       </h6>
     </div>
 
-    <b-form>
+    <b-form @submit.stop.prevent="register">
       <b-form-group label="First Name:">
         <b-form-input type="text"
-                      v-model="fname"
+                      v-model="request.fname"
                       placeholder="John"
                       required
         >
@@ -27,7 +27,7 @@
 
       <b-form-group label="Last Name:">
         <b-form-input type="text"
-                      v-model="lname"
+                      v-model="request.lname"
                       placeholder="Doe"
                       required
         >
@@ -36,7 +36,7 @@
 
       <b-form-group label="Date of Birth:">
         <b-form-input type="date"
-                      v-model="dob"
+                      v-model="request.dob"
                       placeholder="John"
                       required
         >
@@ -46,13 +46,13 @@
       <b-row no-gutters>
         <b-col>
           <b-form-group>
-            <b-form-select v-model="selected" :options="gender" required/>
+            <b-form-select v-model="request.gender" :options="options" required/>
           </b-form-group>
         </b-col>
 
         <b-col :style="{marginLeft: '15px'}">
           <b-form-group>
-            <b-form-checkbox value="yes" unchecked-value="no">
+            <b-form-checkbox v-model="request.child">
               <p> Parent with Child? </p> 
             </b-form-checkbox>
           </b-form-group>
@@ -70,7 +70,6 @@
 
       <div class="text-center">
         <b-button type="submit"
-                  @click="showDismissibleAlert=true"
                   variant="pink"
                   :style="{ marginBottom: '10px' }"
         >
@@ -111,21 +110,31 @@
 
 <script>
 export default {
+  props: {
+    title: String,
+  },
   data() {
     return {
-      title: 'Right Now',
       showDismissibleAlert: false,
-      selected: null,
-      fname: '',
-      lname: '',
-      dob: '',
-      gender: [
+      request: {
+        gender: null,
+        fname: '',
+        lname: '',
+        dob: '',
+        child: false,
+      },
+      options: [
         { value: null, text: 'Gender', disabled: true },
         { value: 'Male', text: 'Male' },
         { value: 'Female', text: 'Female' },
         { value: 'Other', text: 'Other' },
       ],
     };
+  },
+  methods: {
+    async register() {
+      this.$emit('register', this.request);
+    },
   },
 };
 </script>

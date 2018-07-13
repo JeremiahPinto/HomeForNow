@@ -52,6 +52,7 @@
             <b-button variant="pink"
                       :style="{ width: 'inherit', height: '50px' }"
                       v-b-modal.signupmodal
+                      @click="title='Right Now'; request.los='crisis'"
             >
               Right Now
             </b-button>
@@ -60,13 +61,14 @@
             <b-button variant="outline-pink"
                       :style="{ width: 'inherit', height: '50px' }"
                       v-b-modal.signupmodal
+                      @click="title='Long Term'; request.los='transitional';"
             >
               Long Term
             </b-button>
           </b-col>
         </b-row>
 
-        <signup/>
+        <signup @register="submitRequest" :title="title"/>
 
       </b-form-group>
     </b-form>
@@ -118,6 +120,8 @@
 </template>
 
 <script>
+import RequestService from '@/services/RequestService';
+
 import { gmapApi } from 'vue2-google-maps';
 import signupmodal from './Modals/SignUpModal';
 import Contact from './Modules/ContactInfo';
@@ -135,15 +139,11 @@ export default {
         componentRestrictions: { country: 'au' },
       },
       request: {
-        fname: '',
-        lname: '',
-        dob: '',
-        gender: '',
-        child: '',
         lat: 0.0,
         long: 0.0,
         los: '',
       },
+      title: '',
       error: {
         error: '',
         show: false,
@@ -154,6 +154,28 @@ export default {
     google: gmapApi,
   },
   methods: {
+    async submitRequest(value) {
+      const newRequest = {
+        name: {
+          firstName: value.fname,
+          lastName: value.lname,
+        },
+        gender: value.gender,
+        dob: value.dob,
+        child: value.child,
+        lengthOfStay: this.request.los,
+        lat: this.request.lat,
+        long: this.request.long,
+      };
+      try {
+        const services = (await RequestService.search(newRequest)).data;
+        console.log(services);
+      } catch (error) {
+        this.error = error;
+        this.error.show = true;
+      }
+    },
+
     async geolocation() {
       const oldLocValue = this.location;
       this.location = 'Finding your location ...';
