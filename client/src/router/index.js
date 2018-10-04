@@ -9,17 +9,17 @@ import BedVacancies from '@/components/BedVacanciesList';
 import ServiceDashboard from '@/components/ServiceDashboard';
 import AdminDashboard from '@/components/AdminDashboard';
 
-import store from '@/store/store';
+// import store from '@/store/store';
 
 Vue.use(Router);
 
-const isAuthenticated = (to, from, next) => {
-  if (store.getters.isAuthenticated) {
-    next();
-    return;
-  }
-  next('/');
-};
+// const isAuthenticated = (to, from, next) => {
+//   if (store.getters.isAuthenticated) {
+//     next();
+//     return;
+//   }
+//   next('/');
+// };
 
 
 export default new Router({
@@ -57,13 +57,13 @@ export default new Router({
     },
     {
       path: '/service', // Need to fix this route to service name later on
-      beforeEnter: isAuthenticated,
+      // beforeEnter: isAuthenticated,
       name: 'ServiceDashboard',
       component: ServiceDashboard,
     },
     {
       path: '/admin', // Need to fix this route to service name later on
-      beforeEnter: isAuthenticated,
+      // beforeEnter: isAuthenticated,
       name: 'AdminDashboard',
       component: AdminDashboard,
     },

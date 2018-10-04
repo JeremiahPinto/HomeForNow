@@ -20,7 +20,7 @@
     <b-row>
       <b-col cols="12" v-for="Service in Services" :key="Service.name">
         <Cards>
-          <b-img-lazy slot="image" src="../assets/placeholder_image.png" fluid></b-img-lazy>
+          <b-img-lazy slot="image" src="../assets/placeholder_image.png" fluid/>
           <p slot="description"> {{ description(Service) }} </p>
           <h3 slot="suburb"> {{ Service.suburb }} </h3>
           <h2 slot="name"> {{ Service.name }} </h2>
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import BedVacancies from './Modules/BedVacancies';
+import BedVacancies from './Modules/SubModules/BedVacancies';
 
 import SearchService from '../services/SearchService';
 

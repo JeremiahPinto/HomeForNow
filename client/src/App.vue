@@ -11,8 +11,8 @@
 <script>
 import axios from 'axios';
 
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Navbar from './components/Modules/Navbar';
+import Footer from './components/Modules/Footer';
 
 export default {
   name: 'app',
@@ -82,6 +82,7 @@ export default {
 }
 
 .btn-pink {
+  min-width: 90px;
   border-radius: 3px;
   background-color: var(--pink);
   font-size: 13.2px;
@@ -97,6 +98,7 @@ export default {
 }
 
 .btn-outline-pink {
+  min-width: 90px;
   border-radius: 3px;
   background-color: var(--white);
   border: solid 2px var(--pink);
@@ -131,5 +133,31 @@ export default {
 .pac-item {
   font-family: 'Roboto', sans-serif;
   color: #999999;
+}
+
+#ServiceDash {
+  border-radius: 0;
+}
+#ServiceDash ul>li {
+  border-radius: 0;
+  font-size: var(--fluid-h4);
+  background-color: #c4c4c4;
+  text-transform: uppercase;
+  box-shadow: 0px 1px 6.9px 0.1px rgba(0, 0, 0, 0.16);
+}
+#ServiceDash ul>li>a {
+  color: #676767;
+  border-radius: 0;
+}
+#ServiceDash ul>li>a.active, #ServiceDash ul>li>a.active:hover {
+  background-color: var(--white);
+  border: 0.5px solid #ebebeb;
+}
+#ServiceDash ul>li>a:hover {
+  background-color: #ebebeb;
+  border: 0.5px solid #ebebeb;
+}
+#ServiceDash div.card-header {
+  padding: 0 10px;
 }
 </style>

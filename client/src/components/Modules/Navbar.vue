@@ -1,7 +1,7 @@
 <template>
   <b-navbar id="navbar" fixed="top" toggleable="md" type="light" variant="white">
     <b-navbar-brand to="/">
-      <img src="../assets/logo.svg" class="d-inline-block align-top" :style="{ width: '16px' }">
+      <img src="../../assets/logo.svg" class="d-inline-block align-top" :style="{ width: '16px' }">
       HomeForNow
     </b-navbar-brand>
 
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import loginmodal from './Modals/LoginModal';
+import loginmodal from '../Modals/LoginModal';
 
 export default {
   components: {

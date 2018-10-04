@@ -124,7 +124,6 @@ export default {
         child: false,
       },
       options: [
-        { value: null, text: 'Gender', disabled: true },
         { value: 'Male', text: 'Male' },
         { value: 'Female', text: 'Female' },
         { value: 'Other', text: 'Other' },

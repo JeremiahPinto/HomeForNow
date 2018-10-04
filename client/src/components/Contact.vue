@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import ContactInfo from './Modules/ContactInfo';
+import ContactInfo from './Modules/SubModules/ContactInfo';
 
 export default {
   components: {

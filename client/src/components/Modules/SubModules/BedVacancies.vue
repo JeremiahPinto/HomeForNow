@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import contactmodal from '../Modals/ContactModal';
+import contactmodal from '../../Modals/ContactModal';
 
 export default {
   components: {

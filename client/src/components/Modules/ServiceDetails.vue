@@ -1,27 +1,27 @@
 <template>
   <b-container fluid>
-    <b-form @submit.stop.prevent="submit">
-      <b-row>
+    <b-form @submit.stop.prevent="validate">
+      <b-form-row>
         <b-col cols="12" md="7">
           <b-form-group label="Service Name:">
-            <b-form-input v-model="Service.name" required></b-form-input>
+            <b-form-input v-model.trim="Service.name" required></b-form-input>
           </b-form-group>
         </b-col>
 
         <b-col cols="12" md="5">
           <b-form-group label="Service Type:">
-            <b-form-select v-model="Service.serviceType" :options="types" required/>
+            <b-form-select v-model.trim="Service.serviceType" :options="types" required/>
           </b-form-group>
         </b-col>
-      </b-row>
+      </b-form-row>
 
-      <b-row>
+      <b-form-row>
         <b-col>
           <b-form-group label="Location:" inline>
-            <b-row>
+            <b-form-row>
               <b-col cols="12" md="5">
                 <b-form-group description="Suburb">
-                  <b-form-input v-model="Service.address.suburb" required></b-form-input>
+                  <b-form-input v-model.trim="Service.address.suburb" required></b-form-input>
                 </b-form-group>
               </b-col>
 
@@ -33,18 +33,18 @@
 
               <b-col cols="6" md="4">
                 <b-form-group description="Postcode">
-                  <b-form-input v-model="Service.address.postcode" required></b-form-input>
+                  <b-form-input v-model.trim="Service.address.postcode" required></b-form-input>
                 </b-form-group>
               </b-col>
-            </b-row>
+            </b-form-row>
           </b-form-group>
         </b-col>
-      </b-row>
+      </b-form-row>
 
-      <b-row>
+      <b-form-row>
         <b-col cols="12" md="8">
           <b-form-group label="Age Range:" inline>
-            <b-row>
+            <b-form-row>
               <b-col>
                 <b-form-group description="Minimum Age">
                   <b-form-select v-model="Service.ageRange.minAge" :options="ages" required/>
@@ -56,7 +56,7 @@
                   <b-form-select v-model="Service.ageRange.maxAge" :options="ages" required/>
                 </b-form-group>
               </b-col>
-            </b-row>
+            </b-form-row>
           </b-form-group>
         </b-col>
 
@@ -65,123 +65,135 @@
             <b-form-select v-model="Service.stayLength" :options="stayLength" required/>
           </b-form-group>
         </b-col>
-      </b-row>
+      </b-form-row>
 
-      <b-row>
+      <b-form-row>
         <b-col>
           <b-form-group label="Service Contact Information">
-            <b-row>
+            <b-form-row>
               <b-col cols="12" md="6">
                 <b-form-group description="Email">
-                  <b-form-input v-model="Service.contact.email" type="email" required></b-form-input>
+                  <b-form-input v-model.trim="Service.contact.email" type="email" required></b-form-input>
                 </b-form-group>
               </b-col>
 
               <b-col cols="12" md="3">
-                <b-form-group description="Mobile Number">
-                  <b-form-input v-model="Service.contact.number" required></b-form-input>
+                <b-form-group description="Mobile Number (For SMS Notifications)">
+                  <b-form-input v-model.trim="Service.contact.number"></b-form-input>
                 </b-form-group>
               </b-col>
 
               <b-col cols="12" md="3">
                 <b-form-group description="Landline Number (Optional)">
-                  <b-form-input v-model="Service.contact.landline" required></b-form-input>
+                  <b-form-input v-model.trim="Service.contact.landline"></b-form-input>
                 </b-form-group>
               </b-col>
-            </b-row>
+            </b-form-row>
           </b-form-group>
         </b-col>
-      </b-row>
+      </b-form-row>
 
-      <b-row>
+      <b-form-row>
         <b-col>
-          <b-form-group label="Change Password:">
-            <b-row>
-              <b-col cols="12" md="4">
-                <b-form-group description="Old Password">
-                  <b-form-input type="password"></b-form-input>
+          <b-form-group label="Password">
+            <b-form-row>
+              <b-col cols="12" md="6">
+                <b-form-group description="Pasword">
+                  <b-form-input v-model.trim="Service.password" type="password" required></b-form-input>
                 </b-form-group>
               </b-col>
 
-              <b-col cols="12" md="4">
-                <b-form-group description="New Password">
-                  <b-form-input v-model="Service.password" type="password"></b-form-input>
-                </b-form-group>
-              </b-col>
-
-              <b-col cols="12" md="4">
+              <b-col cols="12" md="6">
                 <b-form-group description="Confirm Password">
-                  <b-form-input v-model="password" type="password"></b-form-input>
+                  <b-form-input v-model.trim="password" type="password"></b-form-input>
                 </b-form-group>
               </b-col>
-            </b-row>
+            </b-form-row>
           </b-form-group>
         </b-col>
-      </b-row>
+      </b-form-row>
+
+      <b-button variant="link" v-b-modal.changepasswordmodal>Change Password</b-button>
+      <changepasswordmodal/>
 
       <b-row>
         <b-col cols="12" md="7">
-          <b-row>
+          <b-form-row>
             <b-col cols="12">
               <b-form-group label="Brief Description:">
-                <b-form-textarea v-model="Service.description"></b-form-textarea>
+                <b-form-textarea v-model.trim="Service.description" spellcheck required></b-form-textarea>
               </b-form-group>
             </b-col>
-          </b-row>
+          </b-form-row>
 
-          <b-row>
+          <b-form-row>
             <b-col cols="12">
               <b-form-group label="About:">
-                <b-form-textarea v-model="Service.about"></b-form-textarea>
+                <b-form-textarea v-model.trim="Service.about" spellcheck required></b-form-textarea>
               </b-form-group>
             </b-col>
-          </b-row>
+          </b-form-row>
 
-          <b-row>
+          <b-form-row>
             <b-col cols="12">
               <b-form-group label="House Rules:">
-                <b-form-textarea v-model="Service.houseRules"></b-form-textarea>
+                <b-form-textarea v-model.trim="Service.houseRules" spellcheck required></b-form-textarea>
               </b-form-group>
             </b-col>
-          </b-row>
+          </b-form-row>
 
-          <b-row>
+          <b-form-row>
             <b-col cols="12">
               <b-form-group label="Thank You Message:">
-                <b-form-textarea v-model="Service.thankyouMessage"></b-form-textarea>
+                <b-form-textarea v-model.trim="Service.thankyouMessage" spellcheck></b-form-textarea>
               </b-form-group>
             </b-col>
-          </b-row>
+          </b-form-row>
         </b-col>
 
         <b-col cols="12" md="5">
           <b-row>
-            <b-col b-cols="12">
-              <b-form-group label="Logo:">
-                <b-form-file v-model="Service.images.logo" accept="image/jpg, image/jpeg, image/png, image/bmp"></b-form-file>
+            <b-col>
+              <b-form-group label="Amenities">
+                <!-- <b-card>
+                  <b-row v-for="amenity in amenities" :key="amenity.value" class="py-2">
+                    <b-col cols="2">
+                      <i class="material-icons sec-color float-right align-middle"> {{ amenity.value }} </i>
+                    </b-col>
+
+                    <b-col cols="8">
+                      <h6 class="m-0 p-1"> {{ amenity.text }} </h6>
+                    </b-col>
+
+                    <b-col cols="2">
+                      <input type="checkbox" value="amenity.value">
+                    </b-col>
+                  </b-row>
+                </b-card> -->
+                <b-form-checkbox-group stacked v-model="Service.amenities" :options="amenities"></b-form-checkbox-group>
               </b-form-group>
             </b-col>
           </b-row>
+        </b-col>
+      </b-row>
 
-          <b-row>
+      <b-form-row>
+        <b-col cols="6">
+          <b-form-group label="Logo:">
+            <b-form-file v-model="Service.images.logo" accept="image/jpg, image/jpeg, image/png, image/bmp"></b-form-file>
+          </b-form-group>
+
+          <b-form-row>
             <b-col b-cols="12">
               <b-form-group label="Photos:">
                 <b-form-file v-model="Service.images.photos" accept="image/jpg, image/jpeg, image/png, image/bmp"></b-form-file>
               </b-form-group>
             </b-col>
-          </b-row>
+          </b-form-row>
         </b-col>
-      </b-row>
+      </b-form-row>
 
-      <b-row>
-        <b-col cols="12" md="7">
-          <b-form-group label="Amenities">
-            <b-form-checkbox-group stacked v-model="Service.amenities" :options="amenities"></b-form-checkbox-group>
-          </b-form-group>
-        </b-col>
-      </b-row>
-
-      <b-button variant="pink" type="submit" :style="{ width: '90px' }">Submit</b-button>
+      <b-button variant="pink" type="submit">Submit</b-button>
     </b-form>
     
   </b-container>
@@ -190,11 +202,16 @@
 <script>
 import { gmapApi } from 'vue2-google-maps';
 import AdminDashService from '@/services/AdminDashService';
+import ChangePasswordModal from '../Modals/ChangePasswordModal';
 
 export default {
+  components: {
+    changepasswordmodal: ChangePasswordModal,
+  },
   data() {
     return {
       password: '',
+      passFeedback: '',
       error: {
         error: '',
         show: false,
@@ -250,18 +267,18 @@ export default {
       ],
       ages: [
         { value: null, text: 'Age', disabled: true },
-        { value: '14', text: '14' },
-        { value: '15', text: '15' },
-        { value: '16', text: '16' },
-        { value: '17', text: '17' },
-        { value: '18', text: '18' },
-        { value: '19', text: '19' },
-        { value: '20', text: '20' },
-        { value: '21', text: '21' },
-        { value: '22', text: '22' },
-        { value: '23', text: '23' },
-        { value: '24', text: '24' },
-        { value: '25', text: '25' },
+        { value: 14, text: '14' },
+        { value: 15, text: '15' },
+        { value: 16, text: '16' },
+        { value: 17, text: '17' },
+        { value: 18, text: '18' },
+        { value: 19, text: '19' },
+        { value: 20, text: '20' },
+        { value: 21, text: '21' },
+        { value: 22, text: '22' },
+        { value: 23, text: '23' },
+        { value: 24, text: '24' },
+        { value: 25, text: '25' },
       ],
       stayLength: [
         { value: null, text: '(in months)', disabled: true },
@@ -294,6 +311,16 @@ export default {
   },
   computed: {
     google: gmapApi,
+    validPassword() {
+      if (this.password === '') {
+        return null;
+      }
+      if (this.password !== this.Service.password) {
+        this.passFeedback = 'Passwords do not match';
+        return false;
+      }
+      return true;
+    },
   },
   methods: {
     async getLatLng() {
@@ -329,6 +356,13 @@ export default {
         await AdminDashService.addService(this.Service);
       } catch (error) {
         this.error = error.response.error;
+      }
+    },
+    async validate() {
+      if (this.password !== this.Service.password) {
+        console.log('error');
+      } else {
+        this.submit();
       }
     },
   },

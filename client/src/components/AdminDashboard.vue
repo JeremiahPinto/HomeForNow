@@ -1,25 +1,30 @@
 <template>
-<b-container>
-  <h1 class="fluid-h1">
-    Dashboard
-  </h1>
+  <b-container>
     <b-row>
-      <h4>Users</h4>
-      <b-col cols="12" v-for="user in users" :key=user.id>
-        {{user}}
-      </b-col>
-    </b-row>
-    <b-row>
-      <h4>Services</h4>
-      <b-col cols="12" v-for="service in services" :key=service.id>
-        {{service}}
-      </b-col>
-    </b-row>
-    <b-alert variant="danger">
-      {{error}}
-    </b-alert>
+      <b-col>
+        <h1 class="fluid-h1">
+          Dashboard
+        </h1>
+        <b-row>
+          <h4>Users</h4>
+          <b-col cols="12" v-for="user in users" :key=user.id>
+            {{user}}
+          </b-col>
+        </b-row>
+        <b-row>
+          <h4>Services</h4>
+          <b-col cols="12" v-for="service in services" :key=service.id>
+            {{service}}
+          </b-col>
+        </b-row>
+        <b-alert variant="danger">
+          {{error}}
+        </b-alert>
 
-    <service/>
+        <service/>
+      </b-col>
+    </b-row>
+    
   </b-container>
 </template>
 

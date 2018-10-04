@@ -77,7 +77,7 @@ export const UserModule = {
 };
 
 export default new Vuex.Store({
-  strict: true,
+  strict: true, // remove when in prod
   modules: {
     user: UserModule,
   },
